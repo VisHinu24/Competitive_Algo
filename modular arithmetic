@@ -1,16 +1,39 @@
 ll mod = 1e9 + 7;
-ll mul(ll a,ll b){
-    return (a*1ll*b)%mod;
+ll modAdd(ll a, ll b)
+{
+    return ((a % mod) + (b % mod)) % mod;
 }
-ll divide (ll a,ll b){
-    return a * ((ll)pow(b,mod-2)%mod);
+
+ll modSub(ll a, ll b)
+{
+    return ((a % mod) - (b % mod) + mod)% mod; 
 }
-ll power(ll a,ll b){
-    ll ans = 1;
-    while(b>0){
-        if (b&1) ans = mul(ans,a);
-        a=mul(a,a);
-        b=b>>1; 
+
+ll modMul(ll a, ll b)
+{
+    return ((a % mod) *1ll* (b % mod)) % mod;
+}
+
+ll power(ll x, ll y)
+{
+    ll res = 1;
+    x = x % mod;
+    if (x == 0)
+        return 0;
+    while (y > 0) {
+        if (y & 1)
+            res = (res * x) % mod;
+        y = y >> 1;
+        x = (x * x) % mod;
     }
-    return ans;
+    return res;
+}
+
+ll modInverse(ll a) { return power(a, mod - 2); }
+
+ll modDiv(ll a, ll b)
+{
+    a = a % mod;
+    ll inv = modInverse(b);
+    return (inv * a) % mod;
 }
